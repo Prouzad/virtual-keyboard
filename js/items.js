@@ -1,6 +1,7 @@
 export const keys = [
 	{
 		name: '`',
+		shiftName: '~',
 		key: '`',
 		keyCode: 192,
 		which: 192,
@@ -9,6 +10,7 @@ export const keys = [
 	},
 	{
 		name: '1',
+		shiftName: '!',
 		key: '1',
 		keyCode: 49,
 		which: 49,
@@ -17,6 +19,7 @@ export const keys = [
 	},
 	{
 		name: '2',
+		shiftName: '@',
 		key: '2',
 		keyCode: 50,
 		which: 50,
@@ -25,6 +28,7 @@ export const keys = [
 	},
 	{
 		name: '3',
+		shiftName: '#',
 		key: '3',
 		keyCode: 51,
 		which: 51,
@@ -33,6 +37,7 @@ export const keys = [
 	},
 	{
 		name: '4',
+		shiftName: '$',
 		key: '4',
 		keyCode: 52,
 		which: 52,
@@ -41,6 +46,7 @@ export const keys = [
 	},
 	{
 		name: '5',
+		shiftName: '%',
 		key: '5',
 		keyCode: 53,
 		which: 53,
@@ -49,6 +55,7 @@ export const keys = [
 	},
 	{
 		name: '6',
+		shiftName: '^',
 		key: '6',
 		keyCode: 54,
 		which: 54,
@@ -57,6 +64,7 @@ export const keys = [
 	},
 	{
 		name: '7',
+		shiftName: '&',
 		key: '7',
 		keyCode: 55,
 		which: 55,
@@ -65,6 +73,7 @@ export const keys = [
 	},
 	{
 		name: '8',
+		shiftName: '*',
 		key: '8',
 		keyCode: 56,
 		which: 56,
@@ -73,6 +82,7 @@ export const keys = [
 	},
 	{
 		name: '9',
+		shiftName: '(',
 		key: '9',
 		keyCode: 57,
 		which: 57,
@@ -81,6 +91,7 @@ export const keys = [
 	},
 	{
 		name: '0',
+		shiftName: ')',
 		key: '0',
 		keyCode: 48,
 		which: 48,
@@ -89,6 +100,7 @@ export const keys = [
 	},
 	{
 		name: '-',
+		shiftName: '_',
 		key: '-',
 		keyCode: 109,
 		which: 109,
@@ -97,6 +109,7 @@ export const keys = [
 	},
 	{
 		name: '=',
+		shiftName: '+',
 		key: '=',
 		keyCode: 61,
 		which: 61,
@@ -126,6 +139,7 @@ export const keys = [
 	{
 		name: 'q',
 		key: 'q',
+		ru: 'й',
 		keyCode: 81,
 		which: 81,
 		code: 'KeyQ',
@@ -135,6 +149,7 @@ export const keys = [
 	{
 		name: 'w',
 		key: 'w',
+		ru: 'ц',
 		keyCode: 87,
 		which: 87,
 		code: 'KeyW',
@@ -144,6 +159,7 @@ export const keys = [
 	{
 		name: 'e',
 		key: 'e',
+		ru: 'у',
 		keyCode: 69,
 		which: 69,
 		code: 'KeyE',
@@ -153,6 +169,7 @@ export const keys = [
 	{
 		name: 'r',
 		key: 'r',
+		ru: 'к',
 		keyCode: 82,
 		which: 82,
 		code: 'KeyR',
@@ -162,6 +179,7 @@ export const keys = [
 	{
 		name: 't',
 		key: 't',
+		ru: 'е',
 		keyCode: 84,
 		which: 84,
 		code: 'KeyT',
@@ -171,6 +189,7 @@ export const keys = [
 	{
 		name: 'y',
 		key: 'y',
+		ru: 'н',
 		keyCode: 89,
 		which: 89,
 		code: 'KeyY',
@@ -180,6 +199,7 @@ export const keys = [
 	{
 		name: 'u',
 		key: 'u',
+		ru: 'г',
 		keyCode: 85,
 		which: 85,
 		code: 'KeyU',
@@ -189,6 +209,7 @@ export const keys = [
 	{
 		name: 'i',
 		key: 'i',
+		ru: 'ш',
 		keyCode: 73,
 		which: 73,
 		code: 'KeyI',
@@ -198,6 +219,7 @@ export const keys = [
 	{
 		name: 'o',
 		key: 'o',
+		ru: 'щ',
 		keyCode: 79,
 		which: 79,
 		code: 'KeyO',
@@ -207,6 +229,7 @@ export const keys = [
 	{
 		name: 'p',
 		key: 'p',
+		ru: 'з',
 		keyCode: 80,
 		which: 80,
 		code: 'KeyP',
@@ -215,7 +238,9 @@ export const keys = [
 	},
 	{
 		name: '[',
+		shiftName: '{',
 		key: '[',
+		ru: 'х',
 		keyCode: 160,
 		which: 160,
 		code: 'BracketLeft',
@@ -228,7 +253,9 @@ export const keys = [
 	},
 	{
 		name: ']',
+		shiftName: '}',
 		key: ']',
+		ru: 'ъ',
 		keyCode: 221,
 		which: 221,
 		code: 'BracketRight',
@@ -264,6 +291,7 @@ export const keys = [
 	{
 		name: 'a',
 		key: 'a',
+		ru: 'ф',
 		keyCode: 65,
 		which: 65,
 		code: 'KeyA',
@@ -273,6 +301,7 @@ export const keys = [
 	{
 		name: 's',
 		key: 's',
+		ru: 'ы',
 		keyCode: 83,
 		which: 83,
 		code: 'KeyS',
@@ -282,6 +311,7 @@ export const keys = [
 	{
 		name: 'd',
 		key: 'd',
+		ru: 'в',
 		keyCode: 68,
 		which: 68,
 		code: 'KeyD',
@@ -291,6 +321,7 @@ export const keys = [
 	{
 		name: 'f',
 		key: 'f',
+		ru: 'а',
 		keyCode: 70,
 		which: 70,
 		code: 'KeyF',
@@ -300,6 +331,7 @@ export const keys = [
 	{
 		name: 'g',
 		key: 'g',
+		ru: 'п',
 		keyCode: 71,
 		which: 71,
 		code: 'KeyG',
@@ -309,6 +341,7 @@ export const keys = [
 	{
 		name: 'h',
 		key: 'h',
+		ru: 'р',
 		keyCode: 72,
 		which: 72,
 		code: 'KeyH',
@@ -318,6 +351,7 @@ export const keys = [
 	{
 		name: 'j',
 		key: 'j',
+		ru: 'о',
 		keyCode: 74,
 		which: 74,
 		code: 'KeyJ',
@@ -327,6 +361,7 @@ export const keys = [
 	{
 		name: 'k',
 		key: 'k',
+		ru: 'л',
 		keyCode: 75,
 		which: 75,
 		code: 'KeyK',
@@ -336,6 +371,7 @@ export const keys = [
 	{
 		name: 'l',
 		key: 'l',
+		ru: 'д',
 		keyCode: 76,
 		which: 76,
 		code: 'KeyL',
@@ -344,7 +380,9 @@ export const keys = [
 	},
 	{
 		name: ';',
+		shiftName: ':',
 		key: ';',
+		ru: 'ж',
 		keyCode: 59,
 		which: 59,
 		code: 'Semicolon',
@@ -353,7 +391,9 @@ export const keys = [
 	},
 	{
 		name: "'",
+		shiftName: '"',
 		key: "'",
+		ru: 'э',
 		keyCode: 222,
 		which: 222,
 		code: 'Quote',
@@ -362,7 +402,9 @@ export const keys = [
 	},
 	{
 		name: '\\',
+		shiftName: '|',
 		key: '\\',
+		ru: '\\',
 		keyCode: 220,
 		which: 220,
 		code: 'Backslash',
@@ -393,6 +435,7 @@ export const keys = [
 	{
 		name: 'z',
 		key: 'z',
+		ru: 'я',
 		keyCode: 90,
 		which: 90,
 		code: 'KeyZ',
@@ -402,6 +445,7 @@ export const keys = [
 	{
 		name: 'x',
 		key: 'x',
+		ru: 'ч',
 		keyCode: 88,
 		which: 88,
 		code: 'KeyX',
@@ -411,6 +455,7 @@ export const keys = [
 	{
 		name: 'c',
 		key: 'c',
+		ru: 'с',
 		keyCode: 67,
 		which: 67,
 		code: 'KeyC',
@@ -420,6 +465,7 @@ export const keys = [
 	{
 		name: 'v',
 		key: 'v',
+		ru: 'м',
 		keyCode: 86,
 		which: 86,
 		code: 'KeyV',
@@ -429,6 +475,7 @@ export const keys = [
 	{
 		name: 'b',
 		key: 'b',
+		ru: 'и',
 		keyCode: 66,
 		which: 66,
 		code: 'KeyB',
@@ -438,6 +485,7 @@ export const keys = [
 	{
 		name: 'n',
 		key: 'n',
+		ru: 'т',
 		keyCode: 78,
 		which: 78,
 		code: 'KeyN',
@@ -447,6 +495,7 @@ export const keys = [
 	{
 		name: 'm',
 		key: 'm',
+		ru: 'ь',
 		keyCode: 77,
 		which: 77,
 		code: 'KeyM',
@@ -455,7 +504,9 @@ export const keys = [
 	},
 	{
 		name: ',',
+		shiftName: '<',
 		key: ',',
+		ru: 'б',
 		keyCode: 108,
 		which: 108,
 		code: 'Comma',
@@ -468,7 +519,9 @@ export const keys = [
 	},
 	{
 		name: '.',
+		shiftName: '>',
 		key: '.',
+		ru: 'ю',
 		keyCode: 190,
 		which: 190,
 		code: 'Period',
@@ -477,7 +530,9 @@ export const keys = [
 	},
 	{
 		name: '/',
+		shiftName: '?',
 		key: '/',
+		ru: '.',
 		keyCode: 191,
 		which: 191,
 		code: 'Slash',
