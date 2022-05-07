@@ -56,45 +56,44 @@ function createKeys(key) {
 	const elements = document.createElement('div');
 	elements.classList.add('keys');
 	elements.style.width = `${key.keyWidth}px`;
-	container.append(elements);
+	elements.dataset.key = `${key.code}`;
 
-	const keyName = document.createElement('p');
 	if (lang == 'en') {
 		if (caps == true || shiftKey == true) {
 			if (key.shiftName !== undefined) {
-				keyName.innerHTML =
+				elements.innerHTML =
 					`${key.shiftName}`[0].toUpperCase() + `${key.shiftName}`.slice(1);
 			} else {
-				keyName.innerHTML =
+				elements.innerHTML =
 					`${key.name}`[0].toUpperCase() + `${key.name}`.slice(1);
 			}
 		} else {
-			keyName.innerHTML = `${key.name}`;
+			elements.innerHTML = `${key.name}`;
 		}
 	} else {
 		if (caps == true || shiftKey == true) {
 			if (key.shiftName !== undefined) {
-				keyName.innerHTML =
+				elements.innerHTML =
 					`${key.shiftName}`[0].toUpperCase() + `${key.shiftName}`.slice(1);
 			} else {
 				if (key.ru !== undefined) {
-					keyName.innerHTML =
+					elements.innerHTML =
 						`${key.ru}`[0].toUpperCase() + `${key.ru}`.slice(1);
 				} else {
-					keyName.innerHTML =
+					elements.innerHTML =
 						`${key.name}`[0].toUpperCase() + `${key.name}`.slice(1);
 				}
 			}
 		} else {
 			if (key.ru !== undefined) {
-				keyName.innerHTML = `${key.ru}`;
+				elements.innerHTML = `${key.ru}`;
 			} else {
-				keyName.innerHTML = `${key.name}`;
+				elements.innerHTML = `${key.name}`;
 			}
 		}
 	}
 
-	elements.append(keyName);
+	container.append(elements);
 }
 const els = document.querySelectorAll('div');
 const text = document.querySelector('textarea');
@@ -104,16 +103,16 @@ els.forEach((el, ind) =>
 	el.addEventListener('click', function () {
 		keys.forEach((item, index) => {
 			if (keys[ind - 1] == item) {
-				getMouseDown(item);
-
+				getMouseDown(el, index);
+				console.log(el.textContent);
 				els[count].classList.remove('active');
 			}
 		});
 	})
 );
 
-function getMouseDown(el) {
-	keys.forEach((item, index) => {
+function getMouseDown(el, index) {
+	keys.forEach((item, el) => {
 		if (item.code == el.code) {
 			if (action === false) {
 				action = true;
@@ -148,7 +147,7 @@ function getMouseDown(el) {
 					console.log(shiftKey);
 
 					break;
-				case 'Tab ↹':
+				case 'Tab':
 					el.preventDefault();
 					text.value += '    ';
 					break;
@@ -202,22 +201,37 @@ function addListener() {
 
 addListener();
 function getDown(el) {
-	console.log(el);
-	keys.forEach((item, index) => {
-		if (item.code == el.code) {
+	els.forEach((item, index) => {
+		if (item.dataset.key == el.code) {
+			console.log(item);
+
 			if (action === false) {
 				action = true;
 			}
-
-			switch (item.name) {
+			switch (item.dataset.key) {
 				case 'Space':
 					text.value += ' ';
 					break;
 				case 'Backspace':
 					'back';
 					break;
-				case 'Ctrl':
+				case 'ControlLeft':
 					text.value += '';
+					break;
+				case 'ControlRight':
+					text.value += '';
+					break;
+				case 'Alt':
+					console.log(pressDK);
+					if (pressDK == true) {
+						if (lang == 'en') {
+							lang = 'ru';
+						} else {
+							lang = 'en';
+						}
+					}
+					getCreate();
+
 					break;
 				case 'Alt':
 					console.log(pressDK);
@@ -234,7 +248,7 @@ function getDown(el) {
 				case 'CapsLock':
 					text.value += '';
 					break;
-				case 'Shift':
+				case 'ShiftLeft':
 					if (shiftKey === false) {
 						shiftKey = true;
 						getCreate();
@@ -243,7 +257,17 @@ function getDown(el) {
 						}
 					}
 					break;
-				case 'Tab ↹':
+				case 'ShiftRight':
+					if (shiftKey === false) {
+						shiftKey = true;
+
+						getCreate();
+						if (pressDK == false) {
+							pressDK = true;
+						}
+					}
+					break;
+				case 'Tab':
 					el.preventDefault();
 					text.value += '    ';
 					break;
@@ -268,18 +292,17 @@ function getDown(el) {
 				default:
 					el.preventDefault();
 					textArea.setRangeText(
-						`${item.name}`,
+						`${item.textContent}`,
 						textArea.selectionStart,
 						textArea.selectionEnd,
 						'end'
 					);
 			}
-			count = index + 1;
+			count = index;
+			showHoverEffect(count);
 		}
 	});
-	if (action === true) {
-		els[count].classList.add('active');
-	}
+	showHoverEffect(count);
 	if (count == 29) {
 		if (caps == false) {
 			caps = true;
@@ -290,11 +313,17 @@ function getDown(el) {
 	}
 }
 
+function showHoverEffect(index) {
+	if (action === true) {
+		els[index].classList.add('active');
+	}
+}
+
 window.addEventListener('keyup', function (el) {
-	keys.forEach((item, index) => {
-		if (item.code == el.code) {
+	els.forEach((item, index) => {
+		if (item.dataset.key == el.code) {
 			action = false;
-			switch (item.name) {
+			switch (item.dataset.key) {
 				case 'Space':
 					text.value += ' ';
 					break;
@@ -308,7 +337,7 @@ window.addEventListener('keyup', function (el) {
 					text.value += '';
 					break;
 
-				case 'Shift':
+				case 'ShiftLeft':
 					if (shiftKey == true) {
 						shiftKey = false;
 						getCreate();
@@ -319,9 +348,13 @@ window.addEventListener('keyup', function (el) {
 
 					break;
 			}
-			count = index + 1;
+			count = index;
 		}
 	});
 
 	els[count].classList.remove('active');
 });
+
+// function innerTextContent(){
+// 	if
+// }
