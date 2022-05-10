@@ -6,8 +6,8 @@ let action = false;
 let shiftKey = false;
 let pressDK = false;
 let lang = localStorage.getItem('lang');
-
 if (localStorage.getItem('lang') == null) {
+	lang = 'en';
 	localStorage.setItem('lang', 'en');
 }
 
@@ -274,6 +274,7 @@ function getDown(el) {
 					text.value += ' ';
 					break;
 				case 'Backspace':
+					el.preventDefault();
 					if (textArea.selectionStart) {
 						textArea.setRangeText(
 							'',
@@ -295,6 +296,7 @@ function getDown(el) {
 					break;
 
 				case 'Delete':
+					el.preventDefault();
 					if (textArea.selectionEnd + 1) {
 						textArea.setRangeText(
 							'',
@@ -409,19 +411,19 @@ window.addEventListener('keyup', function (el) {
 				case 'ShiftLeft':
 					if (shiftKey === true) {
 						shiftKey = false;
-						downShift();
-						if (pressDK == false) {
-							pressDK = true;
+						if (pressDK == true) {
+							pressDK = false;
 						}
+						downShift();
 					}
 					break;
 				case 'ShiftRight':
 					if (shiftKey === true) {
 						shiftKey = false;
-						downShift();
-						if (pressDK == false) {
-							pressDK = true;
+						if (pressDK == true) {
+							pressDK = false;
 						}
+						downShift();
 					}
 					break;
 			}

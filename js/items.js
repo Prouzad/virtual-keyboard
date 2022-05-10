@@ -3,6 +3,7 @@ export const keys = [
 		name: '`',
 		shiftName: '~',
 		key: '`',
+		ru: 'ё',
 		keyCode: 192,
 		which: 192,
 		code: 'Backquote',
