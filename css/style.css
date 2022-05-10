@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Work+Sans&display=swap');
 *{
 	margin: 0;
 	padding: 0;
@@ -23,6 +24,12 @@ body{
 	
 }
 
+h1{
+	margin-bottom: 25px;
+	font-family: 'Poppins', sans-serif;
+	font-family: 'Work Sans', sans-serif;
+}
+
 .keys{
 	height: 40px;
 	background-color: rgba(41, 41, 41, 0.5);
@@ -34,7 +41,8 @@ body{
 	color: rgb(216, 216, 216);
 	font-family: 'Poppins', sans-serif;
 	font-family: 'Work Sans', sans-serif;
-	transition: all 0.2s;
+	transition: all 0.3s;
+	user-select: none;
 	
 }
 
@@ -42,6 +50,13 @@ body{
 	transition: transform 0.2s;
 
 	background-color: rgba(92, 92, 92, 0.5);
+
+}
+
+.keys:active{
+	transition: transform 0.5s;
+
+	background-color:blueviolet;
 
 }
 
@@ -54,5 +69,22 @@ body{
 }
 
 
+.footer-container{
+	text-align: center;
+}
 
+.desc{
+	margin-top: 25px;
+	font-family: 'Poppins', sans-serif;
+	font-family: 'Work Sans', sans-serif;
+
+}
+
+.lang{
+	margin-top: 25px;
+
+	font-family: 'Poppins', sans-serif;
+	font-family: 'Work Sans', sans-serif;
+
+}
 
