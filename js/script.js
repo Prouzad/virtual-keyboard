@@ -5,12 +5,15 @@ let count = 0;
 let action = false;
 let shiftKey = false;
 let pressDK = false;
-let lang = 'en';
+let lang = localStorage.getItem('lang');
+
+if (localStorage.getItem('lang') == null) {
+	localStorage.setItem('lang', 'en');
+}
 
 const title = document.createElement('h1');
 title.innerHTML = 'Virtual Keyboard';
 document.body.append(title);
-
 const textArea = document.createElement('textarea');
 textArea.cols = '80';
 textArea.rows = '8';
@@ -76,7 +79,6 @@ const text = document.querySelector('textarea');
 // MOUSE===================================================
 els.forEach((el, ind) =>
 	el.addEventListener('mousedown', function () {
-		console.log('all');
 		keys.forEach((item, index) => {
 			if (keys[ind - 1] == item) {
 				getMouseDown(el, index);
@@ -87,7 +89,7 @@ els.forEach((el, ind) =>
 
 els.forEach((el, ind) =>
 	el.addEventListener('mouseup', function () {
-		console.log('trre');
+		textArea.focus();
 		keys.forEach((item, index) => {
 			if (keys[ind - 1] == item) {
 				getMouseUp(el, index);
@@ -108,7 +110,7 @@ function getMouseDown(el, index) {
 			case 'Backspace':
 				if (textArea.selectionStart) {
 					textArea.setRangeText(
-						``,
+						'',
 						textArea.selectionStart - 1,
 						textArea.selectionEnd,
 						'end'
@@ -119,7 +121,7 @@ function getMouseDown(el, index) {
 			case 'NumpadDecimal':
 				if (textArea.selectionStart) {
 					textArea.setRangeText(
-						``,
+						'',
 						textArea.selectionStart,
 						textArea.selectionEnd + 1,
 						'end'
@@ -130,7 +132,7 @@ function getMouseDown(el, index) {
 			case 'Delete':
 				if (textArea.selectionEnd + 1) {
 					textArea.setRangeText(
-						``,
+						'',
 						textArea.selectionStart,
 						textArea.selectionEnd + 1,
 						'end'
@@ -164,7 +166,6 @@ function getMouseDown(el, index) {
 				downShift();
 				break;
 			case 'CapsLock':
-				console.log(el);
 				if (caps == false) {
 					caps = true;
 				} else {
@@ -243,17 +244,13 @@ function getMouseUp(el, index) {
 			case 'ShiftLeft':
 				if (shiftKey == true) {
 					shiftKey = false;
-				} else {
-					shiftKey === false;
 				}
 				downShift();
 
 				break;
 			case 'ShiftRight':
-				if (shiftKey === false) {
-					shiftKey = true;
-				} else {
-					shiftKey === false;
+				if (shiftKey === true) {
+					shiftKey = false;
 				}
 				downShift();
 
@@ -281,7 +278,7 @@ function getDown(el) {
 				case 'Backspace':
 					if (textArea.selectionStart) {
 						textArea.setRangeText(
-							``,
+							'',
 							textArea.selectionStart - 1,
 							textArea.selectionEnd,
 							'end'
@@ -291,7 +288,7 @@ function getDown(el) {
 				case 'NumpadDecimal':
 					if (textArea.selectionStart) {
 						textArea.setRangeText(
-							``,
+							'',
 							textArea.selectionStart,
 							textArea.selectionEnd + 1,
 							'end'
@@ -302,7 +299,7 @@ function getDown(el) {
 				case 'Delete':
 					if (textArea.selectionEnd + 1) {
 						textArea.setRangeText(
-							``,
+							'',
 							textArea.selectionStart,
 							textArea.selectionEnd + 1,
 							'end'
@@ -317,24 +314,14 @@ function getDown(el) {
 					text.value += '';
 					break;
 				case 'AltLeft':
-					console.log(pressDK);
 					if (pressDK == true) {
-						if (lang == 'en') {
-							lang = 'ru';
-						} else {
-							lang = 'en';
-						}
+						changeLanguage();
 					}
 					downShift();
 					break;
 				case 'AltRight':
-					console.log(pressDK);
 					if (pressDK == true) {
-						if (lang == 'en') {
-							lang = 'ru';
-						} else {
-							lang = 'en';
-						}
+						changeLanguage();
 					}
 					downShift();
 					break;
@@ -520,16 +507,43 @@ function shiftRu(el, index) {
 
 function downCaps() {
 	container.childNodes.forEach((el, index) => {
-		capsEn(el, index);
+		lang == 'en' ? capsEn(el, index) : capsRu(el, index);
 	});
 }
 
 function capsEn(el, index) {
-	console.log(caps);
 	if (caps == true) {
 		el.innerHTML =
 			`${keys[index].name}`[0].toUpperCase() + `${keys[index].name}`.slice(1);
 	} else {
 		el.innerHTML = `${keys[index].name}`;
+	}
+}
+
+function capsRu(el, index) {
+	if (caps == true) {
+		if (keys[index].ru == undefined) {
+			el.innerHTML =
+				`${keys[index].name}`[0].toUpperCase() + `${keys[index].name}`.slice(1);
+		} else {
+			el.textContent =
+				`${keys[index].ru}`[0].toUpperCase() + `${keys[index].ru}`.slice(1);
+		}
+	} else {
+		if (keys[index].ru == undefined) {
+			el.innerHTML = `${keys[index].name}`;
+		} else {
+			el.textContent = `${keys[index].ru}`;
+		}
+	}
+}
+
+function changeLanguage() {
+	if (lang == 'en') {
+		lang = 'ru';
+		localStorage.setItem('lang', 'ru');
+	} else {
+		lang = 'en';
+		localStorage.setItem('lang', 'en');
 	}
 }
