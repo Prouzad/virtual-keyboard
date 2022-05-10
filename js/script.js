@@ -6,8 +6,8 @@ let action = false;
 let shiftKey = false;
 let pressDK = false;
 let lang = localStorage.getItem('lang');
-
 if (localStorage.getItem('lang') == null) {
+	lang = 'en';
 	localStorage.setItem('lang', 'en');
 }
 
@@ -147,21 +147,13 @@ function getMouseDown(el, index) {
 				break;
 			case 'AltLeft':
 				if (pressDK == true) {
-					if (lang == 'en') {
-						lang = 'ru';
-					} else {
-						lang = 'en';
-					}
+					changeLanguage();
 				}
 				downShift();
 				break;
 			case 'AltRight':
 				if (pressDK == true) {
-					if (lang == 'en') {
-						lang = 'ru';
-					} else {
-						lang = 'en';
-					}
+					changeLanguage();
 				}
 				downShift();
 				break;
@@ -173,7 +165,7 @@ function getMouseDown(el, index) {
 				}
 				downCaps();
 
-				els[count].classList.toggle('active-caps');
+				el.classList.toggle('active-caps');
 				break;
 			case 'ShiftLeft':
 				if (shiftKey == false) {
@@ -197,7 +189,6 @@ function getMouseDown(el, index) {
 
 				break;
 			case 'Tab':
-				el.preventDefault();
 				text.value += '    ';
 				break;
 			case 'Enter':
@@ -244,6 +235,9 @@ function getMouseUp(el, index) {
 			case 'ShiftLeft':
 				if (shiftKey == true) {
 					shiftKey = false;
+					if (pressDK == true) {
+						pressDK = false;
+					}
 				}
 				downShift();
 
@@ -251,6 +245,9 @@ function getMouseUp(el, index) {
 			case 'ShiftRight':
 				if (shiftKey === true) {
 					shiftKey = false;
+					if (pressDK == true) {
+						pressDK = false;
+					}
 				}
 				downShift();
 
@@ -265,6 +262,7 @@ function addListener() {
 }
 
 addListener();
+
 function getDown(el) {
 	els.forEach((item, index) => {
 		if (item.dataset.key == el.code) {
@@ -276,6 +274,7 @@ function getDown(el) {
 					text.value += ' ';
 					break;
 				case 'Backspace':
+					el.preventDefault();
 					if (textArea.selectionStart) {
 						textArea.setRangeText(
 							'',
@@ -297,6 +296,7 @@ function getDown(el) {
 					break;
 
 				case 'Delete':
+					el.preventDefault();
 					if (textArea.selectionEnd + 1) {
 						textArea.setRangeText(
 							'',
@@ -314,18 +314,21 @@ function getDown(el) {
 					text.value += '';
 					break;
 				case 'AltLeft':
+					el.preventDefault();
 					if (pressDK == true) {
 						changeLanguage();
 					}
 					downShift();
 					break;
 				case 'AltRight':
+					el.preventDefault();
 					if (pressDK == true) {
 						changeLanguage();
 					}
 					downShift();
 					break;
 				case 'ShiftLeft':
+					el.preventDefault();
 					if (shiftKey == false) {
 						shiftKey = true;
 						downShift();
@@ -335,9 +338,9 @@ function getDown(el) {
 					}
 					break;
 				case 'ShiftRight':
+					el.preventDefault();
 					if (shiftKey === false) {
 						shiftKey = true;
-
 						downShift();
 						if (pressDK == false) {
 							pressDK = true;
@@ -405,33 +408,22 @@ window.addEventListener('keyup', function (el) {
 		if (item.dataset.key == el.code) {
 			action = false;
 			switch (item.dataset.key) {
-				case 'Space':
-					text.value += ' ';
-					break;
-				case 'Backspace':
-					'back';
-					break;
-				case 'Ctrl':
-					text.value += '';
-					break;
-				case 'Alt':
-					if (pressDK == true) {
-						if (lang == 'en') {
-							lang = 'ru';
-						} else {
-							lang = 'en';
-						}
-					}
-					downShift();
-
-					break;
 				case 'ShiftLeft':
 					if (shiftKey === true) {
 						shiftKey = false;
-						downShift();
-						if (pressDK == false) {
-							pressDK = true;
+						if (pressDK == true) {
+							pressDK = false;
 						}
+						downShift();
+					}
+					break;
+				case 'ShiftRight':
+					if (shiftKey === true) {
+						shiftKey = false;
+						if (pressDK == true) {
+							pressDK = false;
+						}
+						downShift();
 					}
 					break;
 			}
@@ -481,11 +473,16 @@ function shiftEn(el, index) {
 }
 
 function shiftRu(el, index) {
-	if (shiftKey == true) {
+	if (shiftKey == true && caps == false) {
 		if (keys[index].shiftName !== undefined) {
-			el.textContent =
-				`${keys[index].shiftName}`[0].toUpperCase() +
-				`${keys[index].shiftName}`.slice(1);
+			if (keys[index].ru != undefined) {
+				el.textContent =
+					`${keys[index].ru}`[0].toUpperCase() + `${keys[index].ru}`.slice(1);
+			} else {
+				el.textContent =
+					`${keys[index].shiftName}`[0].toUpperCase() +
+					`${keys[index].shiftName}`.slice(1);
+			}
 		} else {
 			if (keys[index].ru == undefined) {
 				el.innerHTML =
@@ -496,11 +493,36 @@ function shiftRu(el, index) {
 					`${keys[index].ru}`[0].toUpperCase() + `${keys[index].ru}`.slice(1);
 			}
 		}
-	} else {
-		if (keys[index].ru == undefined) {
-			el.innerHTML = `${keys[index].name}`;
+	} else if (shiftKey == true && caps == true) {
+		if (keys[index].shiftName !== undefined) {
+			if (keys[index].ru != undefined) {
+				el.textContent = `${keys[index].ru}`;
+			} else {
+				el.textContent = `${keys[index].shiftName}`;
+			}
 		} else {
-			el.textContent = `${keys[index].ru}`;
+			if (keys[index].ru == undefined) {
+				el.innerHTML = `${keys[index].name}`;
+			} else {
+				el.textContent = `${keys[index].ru}`;
+			}
+		}
+	} else {
+		if (caps == true) {
+			if (keys[index].ru == undefined) {
+				el.innerHTML =
+					`${keys[index].name}`[0].toUpperCase() +
+					`${keys[index].name}`.slice(1);
+			} else {
+				el.textContent =
+					`${keys[index].ru}`[0].toUpperCase() + `${keys[index].ru}`.slice(1);
+			}
+		} else {
+			if (keys[index].ru == undefined) {
+				el.innerHTML = `${keys[index].name}`;
+			} else {
+				el.textContent = `${keys[index].ru}`;
+			}
 		}
 	}
 }
