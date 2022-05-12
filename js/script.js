@@ -104,10 +104,177 @@ function getMouseDown(el, index) {
 			action = true;
 		}
 		switch (el.dataset.key) {
+		case 'Space':
+			text.value += ' ';
+			break;
+		case 'Backspace':
+			if (textArea.selectionStart) {
+				textArea.setRangeText(
+					'',
+					textArea.selectionStart - 1,
+					textArea.selectionEnd,
+					'end'
+				);
+			}
+
+			break;
+		case 'NumpadDecimal':
+			if (textArea.selectionStart) {
+				textArea.setRangeText(
+					'',
+					textArea.selectionStart,
+					textArea.selectionEnd + 1,
+					'end'
+				);
+			}
+			break;
+
+		case 'Delete':
+			if (textArea.selectionEnd + 1) {
+				textArea.setRangeText(
+					'',
+					textArea.selectionStart,
+					textArea.selectionEnd + 1,
+					'end'
+				);
+			}
+			break;
+		case 'ControlLeft':
+			text.value += '';
+			break;
+		case 'ControlRight':
+			text.value += '';
+			break;
+		case 'AltLeft':
+			if (pressDK == true) {
+				changeLanguage();
+			}
+			downShift();
+			break;
+		case 'AltRight':
+			if (pressDK == true) {
+				changeLanguage();
+			}
+			downShift();
+			break;
+		case 'CapsLock':
+			if (caps == false) {
+				caps = true;
+			} else {
+				caps = false;
+			}
+			downCaps();
+
+			el.classList.toggle('active-caps');
+			break;
+		case 'ShiftLeft':
+			if (shiftKey == false) {
+				shiftKey = true;
+				if (pressDK == false) {
+					pressDK = true;
+				}
+			}
+			downShift();
+
+			break;
+		case 'ShiftRight':
+			if (shiftKey === false) {
+				shiftKey = true;
+
+				if (pressDK == false) {
+					pressDK = true;
+				}
+			}
+			downShift();
+
+			break;
+		case 'Tab':
+			text.value += '    ';
+			break;
+		case 'Enter':
+			text.value += '\n';
+			break;
+		case 'Del ⌦':
+			text.value += '';
+			break;
+		case '&#5167':
+			text.value += 'ᐯ';
+			break;
+		case '&#5171':
+			text.value += 'ᐳ';
+			break;
+		case '&#5169':
+			text.value += 'ᐱ';
+			break;
+		case '&#5176':
+			text.value += 'ᐸ';
+			break;
+		case 'MetaLeft':
+			event.preventDefault();
+			text.value += '';
+			break;
+		default:
+			event.preventDefault();
+			textArea.setRangeText(
+				`${el.textContent}`,
+				textArea.selectionStart,
+				textArea.selectionEnd,
+				'end'
+			);
+			break;
+		}
+	}
+}
+
+function getMouseUp(el, index) {
+	if (el.dataset.key == keys[index].code) {
+		if (action === false) {
+			action = true;
+		}
+		switch (el.dataset.key) {
+		case 'ShiftLeft':
+			if (shiftKey == true) {
+				shiftKey = false;
+				if (pressDK == true) {
+					pressDK = false;
+				}
+			}
+			downShift();
+
+			break;
+		case 'ShiftRight':
+			if (shiftKey === true) {
+				shiftKey = false;
+				if (pressDK == true) {
+					pressDK = false;
+				}
+			}
+			downShift();
+
+			break;
+		}
+	}
+}
+
+// KEYBOARD ===================================================
+function addListener() {
+	window.addEventListener('keydown', getDown);
+}
+
+addListener();
+
+function getDown(el) {
+	els.forEach((item, index) => {
+		if (item.dataset.key == el.code) {
+			if (action === false) {
+				action = true;
+			}
+			switch (item.dataset.key) {
 			case 'Space':
 				text.value += ' ';
 				break;
 			case 'Backspace':
+				el.preventDefault();
 				if (textArea.selectionStart) {
 					textArea.setRangeText(
 						'',
@@ -116,7 +283,6 @@ function getMouseDown(el, index) {
 						'end'
 					);
 				}
-
 				break;
 			case 'NumpadDecimal':
 				if (textArea.selectionStart) {
@@ -130,6 +296,7 @@ function getMouseDown(el, index) {
 				break;
 
 			case 'Delete':
+				el.preventDefault();
 				if (textArea.selectionEnd + 1) {
 					textArea.setRangeText(
 						'',
@@ -139,6 +306,7 @@ function getMouseDown(el, index) {
 					);
 				}
 				break;
+
 			case 'ControlLeft':
 				text.value += '';
 				break;
@@ -146,49 +314,45 @@ function getMouseDown(el, index) {
 				text.value += '';
 				break;
 			case 'AltLeft':
+				el.preventDefault();
 				if (pressDK == true) {
 					changeLanguage();
 				}
 				downShift();
 				break;
 			case 'AltRight':
+				el.preventDefault();
 				if (pressDK == true) {
 					changeLanguage();
 				}
 				downShift();
 				break;
-			case 'CapsLock':
-				if (caps == false) {
-					caps = true;
-				} else {
-					caps = false;
-				}
-				downCaps();
-
-				el.classList.toggle('active-caps');
-				break;
 			case 'ShiftLeft':
+				el.preventDefault();
 				if (shiftKey == false) {
 					shiftKey = true;
+					downShift();
 					if (pressDK == false) {
 						pressDK = true;
 					}
 				}
-				downShift();
-
 				break;
 			case 'ShiftRight':
+				el.preventDefault();
 				if (shiftKey === false) {
 					shiftKey = true;
-
+					downShift();
 					if (pressDK == false) {
 						pressDK = true;
 					}
 				}
-				downShift();
+				break;
+			case 'CapsLock':
+				downCaps();
 
 				break;
 			case 'Tab':
+				el.preventDefault();
 				text.value += '    ';
 				break;
 			case 'Enter':
@@ -210,181 +374,17 @@ function getMouseDown(el, index) {
 				text.value += 'ᐸ';
 				break;
 			case 'MetaLeft':
-				event.preventDefault();
+				el.preventDefault();
 				text.value += '';
 				break;
 			default:
-				event.preventDefault();
+				el.preventDefault();
 				textArea.setRangeText(
-					`${el.textContent}`,
+					`${item.textContent}`,
 					textArea.selectionStart,
 					textArea.selectionEnd,
 					'end'
 				);
-				break;
-		}
-	}
-}
-
-function getMouseUp(el, index) {
-	if (el.dataset.key == keys[index].code) {
-		if (action === false) {
-			action = true;
-		}
-		switch (el.dataset.key) {
-			case 'ShiftLeft':
-				if (shiftKey == true) {
-					shiftKey = false;
-					if (pressDK == true) {
-						pressDK = false;
-					}
-				}
-				downShift();
-
-				break;
-			case 'ShiftRight':
-				if (shiftKey === true) {
-					shiftKey = false;
-					if (pressDK == true) {
-						pressDK = false;
-					}
-				}
-				downShift();
-
-				break;
-		}
-	}
-}
-
-// KEYBOARD ===================================================
-function addListener() {
-	window.addEventListener('keydown', getDown);
-}
-
-addListener();
-
-function getDown(el) {
-	els.forEach((item, index) => {
-		if (item.dataset.key == el.code) {
-			if (action === false) {
-				action = true;
-			}
-			switch (item.dataset.key) {
-				case 'Space':
-					text.value += ' ';
-					break;
-				case 'Backspace':
-					el.preventDefault();
-					if (textArea.selectionStart) {
-						textArea.setRangeText(
-							'',
-							textArea.selectionStart - 1,
-							textArea.selectionEnd,
-							'end'
-						);
-					}
-					break;
-				case 'NumpadDecimal':
-					if (textArea.selectionStart) {
-						textArea.setRangeText(
-							'',
-							textArea.selectionStart,
-							textArea.selectionEnd + 1,
-							'end'
-						);
-					}
-					break;
-
-				case 'Delete':
-					el.preventDefault();
-					if (textArea.selectionEnd + 1) {
-						textArea.setRangeText(
-							'',
-							textArea.selectionStart,
-							textArea.selectionEnd + 1,
-							'end'
-						);
-					}
-					break;
-
-				case 'ControlLeft':
-					text.value += '';
-					break;
-				case 'ControlRight':
-					text.value += '';
-					break;
-				case 'AltLeft':
-					el.preventDefault();
-					if (pressDK == true) {
-						changeLanguage();
-					}
-					downShift();
-					break;
-				case 'AltRight':
-					el.preventDefault();
-					if (pressDK == true) {
-						changeLanguage();
-					}
-					downShift();
-					break;
-				case 'ShiftLeft':
-					el.preventDefault();
-					if (shiftKey == false) {
-						shiftKey = true;
-						downShift();
-						if (pressDK == false) {
-							pressDK = true;
-						}
-					}
-					break;
-				case 'ShiftRight':
-					el.preventDefault();
-					if (shiftKey === false) {
-						shiftKey = true;
-						downShift();
-						if (pressDK == false) {
-							pressDK = true;
-						}
-					}
-					break;
-				case 'CapsLock':
-					downCaps();
-
-					break;
-				case 'Tab':
-					el.preventDefault();
-					text.value += '    ';
-					break;
-				case 'Enter':
-					text.value += '\n';
-					break;
-				case 'Del ⌦':
-					text.value += '';
-					break;
-				case '&#5167':
-					text.value += 'ᐯ';
-					break;
-				case '&#5171':
-					text.value += 'ᐳ';
-					break;
-				case '&#5169':
-					text.value += 'ᐱ';
-					break;
-				case '&#5176':
-					text.value += 'ᐸ';
-					break;
-				case 'MetaLeft':
-					el.preventDefault();
-					text.value += '';
-					break;
-				default:
-					el.preventDefault();
-					textArea.setRangeText(
-						`${item.textContent}`,
-						textArea.selectionStart,
-						textArea.selectionEnd,
-						'end'
-					);
 			}
 			count = index;
 			showHoverEffect(count);
@@ -408,24 +408,24 @@ window.addEventListener('keyup', function (el) {
 		if (item.dataset.key == el.code) {
 			action = false;
 			switch (item.dataset.key) {
-				case 'ShiftLeft':
-					if (shiftKey === true) {
-						shiftKey = false;
-						if (pressDK == true) {
-							pressDK = false;
-						}
-						downShift();
+			case 'ShiftLeft':
+				if (shiftKey === true) {
+					shiftKey = false;
+					if (pressDK == true) {
+						pressDK = false;
 					}
-					break;
-				case 'ShiftRight':
-					if (shiftKey === true) {
-						shiftKey = false;
-						if (pressDK == true) {
-							pressDK = false;
-						}
-						downShift();
+					downShift();
+				}
+				break;
+			case 'ShiftRight':
+				if (shiftKey === true) {
+					shiftKey = false;
+					if (pressDK == true) {
+						pressDK = false;
 					}
-					break;
+					downShift();
+				}
+				break;
 			}
 			count = index;
 		}
