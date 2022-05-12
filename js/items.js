@@ -105,7 +105,7 @@ export const keys = [
 		key: '-',
 		keyCode: 109,
 		which: 109,
-		code: 'NumpadSubtract',
+		code: 'Minus',
 		keyWidth: '40',
 	},
 	{
