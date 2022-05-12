@@ -55,6 +55,7 @@ h1{
 
 .keys:active{
 	transition: transform 0.5s;
+	border-radius: 15px;
 
 	background-color:blueviolet;
 
@@ -62,9 +63,13 @@ h1{
 
 .active-caps{
 	background-color:blueviolet;
+		border-radius: 15px;
+
 }
 
 .active{
+		border-radius: 15px;
+
 	background-color:blueviolet;
 }
 
